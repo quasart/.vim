@@ -90,8 +90,10 @@ set hlsearch "highlight search results
 set gdefault "multiple subs in a line
 
 
-set grepprg=grep
-
+set grepprg="grep -n --directories=skip"
+if has("win32")
+	set grepprg=internal
+end
 
 
 
@@ -174,11 +176,7 @@ vmap <silent> + :s:[\t ]\+: :e<CR>:noh<CR>gv:!column -s" " -t<CR>gv=
 
 
 " grep
-if has("win32")
-	nmap § :vimgrep '' * */*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-else
-	nmap § :grep '' * */*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-end
+nmap § :grep '' * */*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 vmap § "gy§<C-r>g
 
 
