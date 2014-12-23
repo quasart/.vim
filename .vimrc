@@ -90,7 +90,7 @@ set hlsearch "highlight search results
 set gdefault "multiple subs in a line
 
 
-set grepprg="grep -n --directories=skip"
+set grepprg=grep\ -n\ --directories=skip
 if has("win32")
 	set grepprg=internal
 end
@@ -256,6 +256,19 @@ let g:netrw_use_errorwindow    = 1
 "unload original buffer (to avoid it when using :bnext)
 autocmd VimEnter NetrwTreeListing\ 1         bd 1
 
+"quit problem workaround
+function! QuitNetrw()
+	for i in range(1, bufnr($))
+		if buflisted(i)
+			if getbufvar(i, '&filetype') == "netrw"
+				silent exe 'bwipeout ' . i
+			endif
+		endif
+	endfor
+endfunction
+autocmd VimLeavePre *  call QuitNetrw()
+
+
 
 
 """"""""""""""""""""""
@@ -291,7 +304,7 @@ if has('gui_running')
 else
 	set mouse=a
 	map <F2> :call ToggleMouse()<CR>
-	imap <F2> <ESC><F2>i
+	imap <F2> <C-O>:call ToggleMouse()<CR>
 end
 
 function! ToggleMouse()
