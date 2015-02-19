@@ -2,6 +2,7 @@
 "         GENERAL         "
 ",,,,,,,,,,,,,,,,,,,,,,,,,"
 
+
 set nocompatible
 
 "remove all autocmd
@@ -21,6 +22,7 @@ set noswapfile
 "         DISPLAY         "
 ",,,,,,,,,,,,,,,,,,,,,,,,,"
 
+
 syntax on
 colorscheme elflord
 highlight SpecialKey cterm=bold ctermfg=0
@@ -31,6 +33,7 @@ set encoding=utf8
 
 set linebreak "doesn't break words
 set display=lastline "always display the last line
+
 set listchars=tab:»_,trail:• "format of non-printable char (to use with :set list)
 set list
 set matchpairs=(:),{:},[:],<:>
@@ -52,6 +55,7 @@ set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.pdf
 """""""""""""""""""""""""""
 "       INDENT/EOL        "
 ",,,,,,,,,,,,,,,,,,,,,,,,,"
+
 
 set noexpandtab
 
@@ -80,6 +84,7 @@ set textwidth=0 "automatic line return for long lines
 "          SEARCH          "
 ",,,,,,,,,,,,,,,,,,,,,,,,,,"
 
+
 set ignorecase "make searches case-insensitive
 set smartcase  "unless they contain upper-case letters
 
@@ -101,6 +106,9 @@ end
 "        KEY MAPS        "
 ",,,,,,,,,,,,,,,,,,,,,,,,"
 
+
+imap <F1> <Esc><Esc>
+map <F1> <Esc><Esc>
 
 " french keyboard
 nmap é ~
@@ -126,7 +134,7 @@ nmap ² <C-^>
 
 " save/make/debug
 nmap <F5> :update<CR>
-imap <F5> <ESC><F5>
+imap <F5> <Esc><F5>
 nmap <F6> :make<CR>
 nmap <F8> :cn<CR>
 nmap <S-F8> :cp<CR>
@@ -229,6 +237,9 @@ vmap <silent> ( "hc()<ESC>P
 vmap <silent> [ "hc[]<ESC>P
 
 
+"exit insert mode on double-click (following copy/paste expected)
+inoremap <2-LeftMouse> <esc>viw
+
 
 
 
@@ -305,6 +316,17 @@ else
 	set mouse=a
 	map <F2> :call ToggleMouse()<CR>
 	imap <F2> <C-O>:call ToggleMouse()<CR>
+
+	"the following lines enable different cursor mode in vim for mintty
+	"refer to http://code.google.com/p/mintty/wiki/Tips#Terminal_line_settings
+	let &t_ti.="\e[1 q"
+	let &t_SI.="\e[5 q"
+	let &t_EI.="\e[1 q"
+	let &t_te.="\e[0 q"
+	let &t_ti.="\e[?7727h"
+	let &t_te.="\e[?7727l"
+	noremap <Esc>O[ <Esc>
+	noremap! <Esc>O[ <Esc>
 end
 
 function! ToggleMouse()
@@ -319,11 +341,46 @@ function! ToggleMouse()
 		set nolist
 	endif
 	echon "mouse=" &mouse
+
+
+
 endfunction
 
 
-"exit insert mode on double-click (following copy/paste expected)
-inoremap <2-LeftMouse> <esc>viw
+
+
+
+
+"""""""""""""""""""""""
+"       AUTOCMD       "
+",,,,,,,,,,,,,,,,,,,,,"
+
+" remember file position
+autocmd BufReadPost *          if line("'\"") > 0 && line("'\"") <= line("$")
+						\ |      exe "normal g`\""
+						\ |    endif
+
+
+" load vimrc when modified
+autocmd! bufwritepost .vimrc   source %
+
+
+" load skeleton when creating a new file
+autocmd BufNewFile  *.sh       0read ~/.vim/skeleton.sh
+						\ |    normal G
+
+
+" different background color on insert mode
+au InsertEnter * hi Normal ctermbg=black
+au InsertLeave * hi Normal ctermbg=none
+
+
+"auto exit insert mode after a while
+au CursorHoldI * stopinsert
+au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+au InsertLeave * let &updatetime=updaterestore
+
+
 
 
 
@@ -412,23 +469,5 @@ set makeprg=~/scripts/make.sh
 
 
 
-
-
-"""""""""""""""""""""""
-"       AUTOCMD       "
-",,,,,,,,,,,,,,,,,,,,,"
-
-" remember file position
-autocmd BufReadPost *          if line("'\"") > 0 && line("'\"") <= line("$")
-						\ |      exe "normal g`\""
-						\ |    endif
-
-" load vimrc when modified
-autocmd! bufwritepost .vimrc   source %
-
-
-" load skeleton when creating a new file
-autocmd BufNewFile  *.sh       0read ~/.vim/skeleton.sh
-						\ |    normal G
 
 
