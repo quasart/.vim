@@ -2,7 +2,6 @@
 "         GENERAL         "
 ",,,,,,,,,,,,,,,,,,,,,,,,,"
 
-
 set nocompatible
 
 "remove all autocmd
@@ -21,7 +20,6 @@ set noswapfile
 """""""""""""""""""""""""""
 "         DISPLAY         "
 ",,,,,,,,,,,,,,,,,,,,,,,,,"
-
 
 syntax on
 colorscheme elflord
@@ -56,7 +54,6 @@ set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.pdf
 "       INDENT/EOL        "
 ",,,,,,,,,,,,,,,,,,,,,,,,,"
 
-
 set noexpandtab
 
 set tabstop=4 "tab correspond a 4 espaces
@@ -83,7 +80,6 @@ set textwidth=0 "automatic line return for long lines
 """"""""""""""""""""""""""""
 "          SEARCH          "
 ",,,,,,,,,,,,,,,,,,,,,,,,,,"
-
 
 set ignorecase "make searches case-insensitive
 set smartcase  "unless they contain upper-case letters
@@ -184,7 +180,8 @@ vmap <silent> + :s:[\t ]\+: :e<CR>:noh<CR>gv:!column -s" " -t<CR>gv=
 
 
 " grep
-nmap § :grep '' * */*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+"nmap § :grep '' * */*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nmap § :grep -r '' *<LEFT><LEFT><LEFT>
 vmap § "gy§<C-r>g
 
 
@@ -252,7 +249,7 @@ let g:netrw_browse_split=4 "previous windows as default
 let g:netrw_preview=1 "vsplit as default
 let g:netrw_banner=0 "disable banner
 let g:netrw_liststyle=3 "tree linsting
-let g:netrw_winsize=160
+let g:netrw_winsize=-220
 
 let g:netrw_list_hide= '^\.[^\.].*' " to hide .* files
 let g:netrw_hide=0
@@ -316,17 +313,6 @@ else
 	set mouse=a
 	map <F2> :call ToggleMouse()<CR>
 	imap <F2> <C-O>:call ToggleMouse()<CR>
-
-	"the following lines enable different cursor mode in vim for mintty
-	"refer to http://code.google.com/p/mintty/wiki/Tips#Terminal_line_settings
-	let &t_ti.="\e[1 q"
-	let &t_SI.="\e[5 q"
-	let &t_EI.="\e[1 q"
-	let &t_te.="\e[0 q"
-	let &t_ti.="\e[?7727h"
-	let &t_te.="\e[?7727l"
-	noremap <Esc>O[ <Esc>
-	noremap! <Esc>O[ <Esc>
 end
 
 function! ToggleMouse()
@@ -341,9 +327,6 @@ function! ToggleMouse()
 		set nolist
 	endif
 	echon "mouse=" &mouse
-
-
-
 endfunction
 
 
@@ -360,7 +343,6 @@ autocmd BufReadPost *          if line("'\"") > 0 && line("'\"") <= line("$")
 						\ |      exe "normal g`\""
 						\ |    endif
 
-
 " load vimrc when modified
 autocmd! bufwritepost .vimrc   source %
 
@@ -374,10 +356,9 @@ autocmd BufNewFile  *.sh       0read ~/.vim/skeleton.sh
 au InsertEnter * hi Normal ctermbg=black
 au InsertLeave * hi Normal ctermbg=none
 
-
 "auto exit insert mode after a while
 au CursorHoldI * stopinsert
-au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+au InsertEnter * let updaterestore=&updatetime | set updatetime=7000
 au InsertLeave * let &updatetime=updaterestore
 
 
