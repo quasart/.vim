@@ -1,15 +1,6 @@
 #!/bin/bash
 
 
-# basic commands
-
-alias ls='ls --color=auto'
-alias ll='ls -l'
-alias watch='watch '
-alias psme='ps -edf | grep $USER | grep -v "grep $USER"'
-alias gtree='git log --graph --oneline --all --decorate --color '
-
-
 # formatting
 
 alias now_timestamp='date +%Y%m%d_%H%M%S'
@@ -17,13 +8,20 @@ alias column_tab='column -t -s"	" -n'
 color_err()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
 
 
-# basic scripts
+# commands
+
+alias ll='ls -l --color=auto'
+alias grep='grep --directories=skip --colour=auto '
+alias watch='watch '
+
+alias psme='ps -edf | grep $USER | grep -v "grep $USER"'
+
+alias gtree='git log --graph --oneline --all --decorate --color '
 
 wiki()
 {
 	lynx -use_mouse -anonymous -nocolor -editor=vim https://fr.wikipedia.org/wiki/`echo $@ | tr ' ' '_'`
 }
-
 
 # prompt
 

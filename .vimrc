@@ -258,6 +258,7 @@ let g:netrw_sort_sequence='[\/]$,*' " directories first
 "let g:netrw_sort_sequence='[\/]$,\.h\(pp\)\?\*\?$,\.c\(pp\)\?\*\?$,Makefile*,*,version\.h' "hpp/cpp first
 let g:netrw_sort_options="i" " ignore case in sort
 
+let g:netrw_dirhistmax=0 "disable history
 let g:netrw_use_errorwindow    = 1
 
 
