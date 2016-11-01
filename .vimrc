@@ -290,7 +290,7 @@ if has('gui_running')
 	highlight CursorLine guibg=#292929
 	highlight SpecialKey guifg=#304040
 	highlight Normal     guibg=#222222
-	set guifont=Consolas:h10:cANSI
+	set guifont=Monospace,Consolas:h10:cANSI
 
 	set guioptions-=T "no toolbar
 	set linespace=1 "interligne
