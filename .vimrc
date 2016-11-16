@@ -97,6 +97,21 @@ if has("win32")
 end
 
 
+"""""""""""""""""""""""""""
+"          DIFF           "
+",,,,,,,,,,,,,,,,,,,,,,,,,"
+
+highlight DiffDelete cterm=none ctermfg=black ctermbg=red
+highlight DiffAdd    cterm=bold ctermbg=green
+highlight DiffText   cterm=bold ctermbg=green
+highlight DiffChange cterm=bold ctermbg=blue
+
+set diffopt=filler,iwhite
+
+if &diff
+	set nolist
+endif
+
 
 """"""""""""""""""""""""""
 "        KEY MAPS        "
@@ -116,6 +131,11 @@ nmap à @q
 "nmap ù %
 "nmap € ?
 
+" Putty keyboard
+map [25~ <S-F3>
+map [29~ <S-F6>
+map [31~ <S-F7>
+map [32~ <S-F8>
 
 " dont overwrite default register
 vnoremap p "_c<Esc>p
@@ -132,6 +152,7 @@ nmap ² <C-^>
 nmap <F5> :update<CR>
 imap <F5> <Esc><F5>
 nmap <F6> :make<CR>
+nmap <S-F6> :cwindow<CR>
 nmap <F8> :cn<CR>
 nmap <S-F8> :cp<CR>
 
@@ -167,7 +188,7 @@ nmap Q @q
 " spell
 if version >= 700
 	nmap <F3> :set spell!<CR>
-	"map <S-F3> z=
+	map <S-F3> z=
 endif
 
 " search for selection. url:http://vim.sf.net/tips/tip.php?tip_id=780
@@ -193,6 +214,8 @@ let g:auto_next_dictionary = {
 			\ 'false'  :  'true'  ,
 			\ 'yes'    :  'no'    ,
 			\ 'no'     :  'yes'   ,
+			\ 'On'     :  'Off'   ,
+			\ 'Off'    :  'On'    ,
 			\ 'on'     :  'off'   ,
 			\ 'off'    :  'on'    }
 function! s:ExtendedCtrlA()

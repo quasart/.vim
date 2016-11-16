@@ -17,10 +17,11 @@ alias watch='watch '
 alias psme='ps -edf | grep $USER | grep -v "grep $USER"'
 
 alias gtree='git log --graph --oneline --all --decorate --color '
+#alias gblameall='git ls-tree -r -z --name-only HEAD -- */*.[ch]* | xargs -0 -n1 git blame --line-porcelain HEAD |grep  "^author "|sort|uniq -c|sort -nr'
 
 wiki()
 {
-	lynx -use_mouse -anonymous -nocolor -editor=vim https://fr.wikipedia.org/wiki/`echo $@ | tr ' ' '_'`
+	lynx -use_mouse -anonymous -nocolor -editor=vim https://fr.wikipedia.org/wiki/`echo $@ | tr ' ' '_' | sed 's/^./\U&/'`
 }
 
 # prompt
