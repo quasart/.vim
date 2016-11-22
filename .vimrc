@@ -106,7 +106,7 @@ highlight DiffAdd    cterm=bold ctermbg=green
 highlight DiffText   cterm=bold ctermbg=green
 highlight DiffChange cterm=bold ctermbg=blue
 
-set diffopt=filler,iwhite
+set diffopt=filler,iwhite,context:20
 
 if &diff
 	set nolist
@@ -335,6 +335,7 @@ if has('gui_running')
 	"set showtabline=1
 else
 	set mouse=a
+	set ttymouse=urxvt "to enable mouse on wide screens
 	map <F2> :call ToggleMouse()<CR>
 	imap <F2> <C-O>:call ToggleMouse()<CR>
 end
@@ -363,7 +364,7 @@ endfunction
 ",,,,,,,,,,,,,,,,,,,,,"
 
 " remember file position
-autocmd BufReadPost *          if line("'\"") > 0 && line("'\"") <= line("$")
+autocmd BufReadPost *          if line("'\"") > 0 && line("'\"") <= line("$") && ! &diff
 						\ |      exe "normal g`\""
 						\ |    endif
 
@@ -377,13 +378,13 @@ autocmd BufNewFile  *.sh       0read ~/.vim/skeleton.sh
 
 
 " different background color on insert mode
-au InsertEnter * hi Normal ctermbg=black
-au InsertLeave * hi Normal ctermbg=none
+autocmd InsertEnter * highlight Normal ctermbg=black
+autocmd InsertLeave * highlight Normal ctermbg=none
 
 "auto exit insert mode after a while
-au CursorHoldI * stopinsert
-au InsertEnter * let updaterestore=&updatetime | set updatetime=7000
-au InsertLeave * let &updatetime=updaterestore
+autocmd CursorHoldI * stopinsert
+autocmd InsertEnter * let updaterestore=&updatetime | set updatetime=7000
+autocmd InsertLeave * let &updatetime=updaterestore
 
 
 
