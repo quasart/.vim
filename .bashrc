@@ -21,7 +21,8 @@ alias gtree='git log --graph --oneline --all --decorate --color '
 
 wiki()
 {
-	lynx -use_mouse -anonymous -nocolor -editor=vim https://fr.wikipedia.org/wiki/`echo $@ | tr ' ' '_' | sed 's/^./\U&/'`
+	lynx -use_mouse -nopause -anonymous -nocolor -editor=vim https://fr.wikipedia.org/wiki/`echo $@ | tr ' ' '_' | sed 's/^./\U&/'`
+	#lynx -dump -nolist -justify -anonymous 
 }
 
 # prompt

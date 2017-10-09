@@ -191,6 +191,9 @@ if version >= 700
 	map <S-F3> z=
 endif
 
+" git
+nnoremap <f4> :!git blame -w <C-R>% \| less -j20 +<C-R>=line('.')<CR><CR>
+
 " search for selection. url:http://vim.sf.net/tips/tip.php?tip_id=780
 vmap <silent> * "gy/<C-R>=substitute( escape(@g, '\\/.*$^~[]'), "[ \t\n]\\+", '\\_s\\+', 'g' )<CR><CR>
 vmap <silent> # "gy?<C-R>=substitute( escape(@g, '\\/.*$^~[]'), "[ \t\n]\\+", '\\_s\\+', 'g' )<CR><CR>
