@@ -277,6 +277,10 @@ let g:netrw_banner=0 "disable banner
 let g:netrw_liststyle=3 "tree linsting
 let g:netrw_winsize=-220
 
+if version < 704
+	let g:netrw_winsize=220
+endif
+
 let g:netrw_list_hide= '^\.[^\.].*' " to hide .* files
 let g:netrw_hide=0
 
@@ -285,11 +289,15 @@ let g:netrw_sort_sequence='[\/]$,*' " directories first
 let g:netrw_sort_options="i" " ignore case in sort
 
 let g:netrw_dirhistmax=0 "disable history
-let g:netrw_use_errorwindow    = 1
+let g:netrw_use_errorwindow=0
+let g:netrw_fastbrowse=0
 
 
 "unload original buffer (to avoid it when using :bnext)
 autocmd VimEnter NetrwTreeListing\ 1         bd 1
+
+"disable annoying double-click
+autocmd VimEnter NetrwTreeListing\ 1       noremap <2-LeftMouse> <CR>
 
 "quit problem workaround
 function! QuitNetrw()
