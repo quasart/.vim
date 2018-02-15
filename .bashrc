@@ -8,7 +8,7 @@ alias column_tab='column -t -s"	" -n'
 color_err()(set -o pipefail;"$@" 2>&1>&3|sed $'s,.*,\e[31m&\e[m,'>&2)3>&1
 
 
-# commands
+# bash commands
 
 alias ll='ls -l --color=auto'
 alias grep='grep --directories=skip --colour=auto '
@@ -16,13 +16,25 @@ alias watch='watch '
 
 alias psme='ps -edf | grep $USER | grep -v "grep $USER"'
 
-alias gtree='git log --graph --oneline --all --decorate --color '
-#alias gblameall='git ls-tree -r -z --name-only HEAD -- */*.[ch]* | xargs -0 -n1 git blame --line-porcelain HEAD |grep  "^author "|sort|uniq -c|sort -nr'
+
+# git
+
+git config --global core.editor 'vim'
+git config --global diff.tool 'vimdiff'
+
+git config --global alias.tree          'log --graph --oneline --branches --remotes --tags --decorate --color'
+git config --global alias.cinfo         '!git log  $1^..$1 && echo Files: && git diff --stat $1^..$1'
+git config --global alias.amend         'commit --amend -C HEAD'
+#git config --global alias.stat-authors  '!git log | grep "Author:" | sort | uniq -c | sort -nr'
+#git config --global alias.blame-all     '!git ls-tree -r -z --name-only HEAD -- */*.[ch]* | xargs -0 -n1 git blame --line-porcelain HEAD |grep  "^author "|sort|uniq -c|sort -nr'
+
+
+# web
 
 wiki()
 {
 	lynx -use_mouse -nopause -anonymous -nocolor -editor=vim https://fr.wikipedia.org/wiki/`echo $@ | tr ' ' '_' | sed 's/^./\U&/'`
-	#lynx -dump -nolist -justify -anonymous 
+	#lynx -dump -nolist -justify -anonymous https://fr.wikipedia.org/wiki/`echo $@ | tr ' ' '_' | sed 's/^./\U&/'`
 }
 
 # prompt
