@@ -208,6 +208,9 @@ vmap <silent> + :s:[\t ]\+: :e<CR>:noh<CR>gv:!column -s" " -t<CR>gv=
 nmap § :grep -r '' *<LEFT><LEFT><LEFT>
 vmap § "gy§<C-r>g
 
+" vim-command-t
+nmap ! :CommandT<CR>
+
 
 " CTRL-A extension : change cursor according to dictionary
 map <C-a> :call <SID>ExtendedCtrlA()<CR>
@@ -310,6 +313,12 @@ function! QuitNetrw()
 	endfor
 endfunction
 autocmd VimLeavePre *  call QuitNetrw()
+
+
+" WinManager
+"let g:defaultExplorer=0
+let g:persistentBehaviour=0 " quit on BufExplorer exit
+let g:winManagerWidth=50
 
 
 
