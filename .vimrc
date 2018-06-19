@@ -406,7 +406,20 @@ autocmd CursorHoldI * stopinsert
 autocmd InsertEnter * let updaterestore=&updatetime | set updatetime=7000
 autocmd InsertLeave * let &updatetime=updaterestore
 
+" Local configuration : https://www.vim.org/scripts/script.php?script_id=1408
+function SetLocalOptions(fname)
+	let dirname = fnamemodify(a:fname, ":p:h")
+	while "/" != dirname
+		let lvimrc  = dirname . "/.lvimrc"
+		if filereadable(lvimrc)
+			execute "source " . lvimrc
+			break
+		endif
+		let dirname = fnamemodify(dirname, ":p:h:h")
+	endwhile
+endfunction
 
+au BufNewFile,BufRead * call SetLocalOptions(bufname("%"))
 
 
 
