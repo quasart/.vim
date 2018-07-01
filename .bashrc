@@ -22,9 +22,10 @@ alias psme='ps -edf | grep $USER | grep -v "grep $USER"'
 git config --global core.editor 'vim'
 git config --global diff.tool 'vimdiff'
 
-git config --global alias.tree          'log --graph --oneline --branches --remotes --tags --decorate --color'
+git config --global alias.tree          'log --graph --oneline --branches --remotes --tags --decorate --color --max-count=20'
 git config --global alias.review        '!git log  $1^..$1 && echo \"\" && git diff --stat $1^..$1 && git difftool $1^..$1'
 git config --global alias.amend         'commit --amend -C HEAD'
+git config --global alias.fixup         'commit --no-verify --fixup'
 #git config --global alias.stat-authors  '!git log | grep "Author:" | sort | uniq -c | sort -nr'
 #git config --global alias.blame-all     '!git ls-tree -r -z --name-only HEAD -- */*.[ch]* | xargs -0 -n1 git blame --line-porcelain HEAD |grep  "^author "|sort|uniq -c|sort -nr'
 
