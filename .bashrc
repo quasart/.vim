@@ -22,10 +22,18 @@ alias psme='ps -edf | grep $USER | grep -v "grep $USER"'
 git config --global core.editor 'vim'
 git config --global diff.tool 'vimdiff'
 
+git config --global alias.s             'status'
+git config --global alias.co            'commit'
+git config --global alias.ch            'checkout'
+
 git config --global alias.tree          'log --graph --oneline --branches --remotes --tags --decorate --color --max-count=20'
 git config --global alias.review        '!git log  $1^..$1 && echo \"\" && git diff --stat $1^..$1 && git difftool $1^..$1'
 git config --global alias.amend         'commit --amend -C HEAD'
 git config --global alias.fixup         'commit --no-verify --fixup'
+
+git config --global alias.get-branch    '!git branch 2> /dev/null | grep "^*" | cut -c3-'
+git config --global alias.get-status    '!git status --short 2> /dev/null | wc -l | sed -e "s/^/+/" -e "s/+0//"'
+
 #git config --global alias.stat-authors  '!git log | grep "Author:" | sort | uniq -c | sort -nr'
 #git config --global alias.blame-all     '!git ls-tree -r -z --name-only HEAD -- */*.[ch]* | xargs -0 -n1 git blame --line-porcelain HEAD |grep  "^author "|sort|uniq -c|sort -nr'
 
@@ -43,7 +51,7 @@ wiki()
 #COLOR_dark="\[\e[0;30m\]"
 #COLOR_red="\[\e[0;31m\]"
 COLOR_green="\[\e[0;32m\]"
-#COLOR_yellow="\[\e[0;33m\]"
+COLOR_yellow="\[\e[0;33m\]"
 #COLOR_blue="\[\e[0;34m\]"
 COLOR_cyan="\[\e[0;36m\]"
 #COLOR_white="\[\e[0;37m\]"
@@ -58,5 +66,6 @@ COLOR_CYAN="\[\e[1;36m\]"
 
 COLOR_NONE="\[\e[0;00m\]"
 
-PS1="${COLOR_cyan}\u@\h:${COLOR_CYAN}\w${COLOR_green} >${COLOR_NONE}"
+PS_CONTEXT='`git get-branch``git get-status`'
+PS1="${COLOR_cyan}\u@\h:${COLOR_CYAN}\w ${COLOR_yellow}${PS_CONTEXT}${COLOR_green} >${COLOR_NONE}"
 
