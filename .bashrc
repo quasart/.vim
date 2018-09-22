@@ -27,15 +27,15 @@ git config --global alias.co            'commit'
 git config --global alias.ch            'checkout'
 
 git config --global alias.tree          'log --graph --oneline --branches --remotes --tags --decorate --color --max-count=20'
-git config --global alias.review        '!git log  $1^..$1 && echo \"\" && git diff --stat $1^..$1 && git difftool $1^..$1'
+git config --global alias.review        '!git log $1 --max-count=1 && echo "" && git diff --stat $1^..$1 && git difftool $1^..$1'
 git config --global alias.amend         'commit --amend -C HEAD'
-git config --global alias.fixup         'commit --no-verify --fixup'
+git config --global alias.fixup         'commit --fixup'
 
 git config --global alias.get-branch    '!git branch 2> /dev/null | grep "^*" | cut -c3-'
 git config --global alias.get-status    '!git status --short 2> /dev/null | wc -l | sed -e "s/^/+/" -e "s/+0//"'
 
 #git config --global alias.stat-authors  '!git log | grep "Author:" | sort | uniq -c | sort -nr'
-#git config --global alias.blame-all     '!git ls-tree -r -z --name-only HEAD -- */*.[ch]* | xargs -0 -n1 git blame --line-porcelain HEAD |grep  "^author "|sort|uniq -c|sort -nr'
+#git config --global alias.stat-blame    '!git ls-tree -r -z --name-only HEAD -- */*.[ch]* | xargs -0 -n1 git blame --line-porcelain HEAD |grep  "^author "|sort|uniq -c|sort -nr'
 
 
 # web
