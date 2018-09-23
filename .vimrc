@@ -162,23 +162,6 @@ nmap <F12> :set list!<CR>
 imap <F12> <C-o><F12>
 nmap <S-F12> /[\r \t]\+$/<CR>
 vmap <F12>    :s/[\r \t]\+$//<CR>
-"nmap <silent> <F12> :call ToggleListChars()<CR>
-"function! ToggleListChars()
-"	if &list == 0
-"		set listchars=tab:»_,trail:•,nbsp:%
-"		set list
-"		echon "list all"
-"	else
-"		if &listchars=='tab:»_,trail:•,nbsp:%'
-"			set listchars=tab:»\ ,trail:·
-"			echon "list tabs"
-"		else
-"			set listchars= 
-"			set list!
-"			echon "list none"
-"		endif
-"	endif
-"endfunction
 
 
 " quick recording replay (with q register)
@@ -201,6 +184,9 @@ vmap <silent> # "gy?<C-R>=substitute( escape(@g, '\\/.*$^~[]'), "[ \t\n]\\+", '\
 
 " aligne en colonne
 vmap <silent> + :s:[\t ]\+: :e<CR>:noh<CR>gv:!column -s" " -t<CR>gv=
+
+" CamelCase => under_score
+vmap <silent> _  :s/\%V\([a-z]\)\([A-Z0-9]\)/\1_\2<CR>gvu
 
 
 " grep
