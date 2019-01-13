@@ -106,6 +106,14 @@ highlight DiffAdd    cterm=bold ctermbg=green
 highlight DiffText   cterm=bold ctermbg=green
 highlight DiffChange cterm=bold ctermbg=blue
 
+if (&t_Co == 256)
+	highlight DiffDelete cterm=none ctermfg=black ctermbg=52
+	highlight DiffAdd    cterm=bold ctermbg=22
+	highlight DiffText   cterm=bold ctermbg=22
+	highlight DiffChange cterm=bold ctermbg=17
+endif
+
+
 set diffopt=filler,iwhite,context:20
 
 if &diff
