@@ -28,7 +28,7 @@ git config --global alias.ch            'checkout'
 
 git config --global alias.tree          'log --graph --oneline --branches --remotes --tags --decorate --color --max-count=20'
 git config --global alias.review        '!git log $1 --max-count=1 && echo "" && git diff --stat $1^..$1 && git difftool $1^..$1'
-git config --global alias.amend         'commit --amend -C HEAD'
+git config --global alias.amend         'commit --amend -C HEAD --reset-author'
 git config --global alias.fixup         'commit --fixup'
 
 git config --global alias.get-branch    '!git branch 2> /dev/null | grep "^*" | cut -c3-'
