@@ -91,10 +91,15 @@ set hlsearch "highlight search results
 set gdefault "multiple subs in a line
 
 
-set grepprg=grep\ -n\ --directories=skip
-if has("win32")
+" should migrate to https://github.com/itchyny/vim-grep
+set grepprg=internal
+if executable('git') && isdirectory("./.git")
+	set grepprg=git\ grep\ -n
+elseif executable('grep')
+	set grepprg=grep\ -n\ -r\ --directories=skip
+else
 	set grepprg=internal
-end
+endif
 
 
 """""""""""""""""""""""""""
@@ -164,6 +169,9 @@ nmap <S-F6> :cwindow<CR>
 nmap <F8> :cn<CR>
 nmap <S-F8> :cp<CR>
 
+if filereadable("./build/Makefile")
+	set makeprg=cd\ build;make
+endif
 
 " show whitespace
 nmap <F12> :set list!<CR>
@@ -497,7 +505,6 @@ autocmd FileType erb,php vmap <silent> i
 
 autocmd BufReadPost *.replay    set tabstop=15 nolist
 
-set makeprg=~/scripts/make.sh
 
 
 
