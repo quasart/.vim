@@ -138,7 +138,7 @@ map <F1> <Esc><Esc>
 nmap é ~
 vmap é ~
 nmap µ :noh<CR>
-"nmap è `
+nmap è :below terminal<CR>
 "nmap ç ^
 nmap à @q
 "nmap ù %
