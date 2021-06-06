@@ -201,6 +201,9 @@ vmap <silent> # "gy?<C-R>=substitute( escape(@g, '\\/.*$^~[]'), "[ \t\n]\\+", '\
 " aligne en colonne
 vmap <silent> + :s:[\t ]\+: :e<CR>:noh<CR>gv:!column -s" " -t<CR>gv=
 
+" vsplit pour lecture en colonnes
+nmap ° :vsplit<CR><C-W>lz+
+
 " CamelCase => under_score
 vmap <silent> _  :s/\%V\([a-z]\)\([A-Z0-9]\)/\1_\2<CR>gvu
 
